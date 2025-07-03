@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -30,10 +31,12 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
             index === activeSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
-          <img
+          <Image
             src={src}
             alt={`Slide ${index + 1}`}
             className="w-full h-full object-cover rounded-lg"
+            width={100}
+            height={100}
           />
         </div>
       ))}
