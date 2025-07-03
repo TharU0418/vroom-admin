@@ -32,11 +32,11 @@ function Requests() {
   const [selectedType, setSelectedType] = useState('all');
   const [loading, setLoading] = useState(true);
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
-  const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string } }>({});
+  const [formData, setFormData] = useState<{ [key: string]: { star: number; reason: string; driverId: string; } }>({});
   
   const [showNotification, setShowNotification] = useState(false);
       const [notificationMessage, setNotificationMessage] = useState('');
-    
+
   
       const Notification = () => (
         <div className="fixed bottom-4 right-4 z-50">
