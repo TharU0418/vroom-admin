@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo } from "@/components/logo";
+//import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,6 +9,7 @@ import { NAV_DATA } from "./data";
 import { ArrowLeftIcon, ChevronUp } from "./icons";
 import { MenuItem } from "./menu-item";
 import { useSidebarContext } from "./sidebar-context";
+import Image from "next/image";
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -72,10 +73,12 @@ export function Sidebar() {
               className="px-0 py-2.5 min-[850px]:py-0"
             >
               {/* <Logo /> */}
-             <img 
-            src="logo.jpg" 
+             <Image 
+            src="/logo.jpg" 
             alt="Luxury Car"
             className="w-42 h-auto object-contain"
+            width={100}
+            height={100}
           />
             </Link>
 
