@@ -1,11 +1,11 @@
 // pages/api/users/index.ts
-import { dbConnect } from '@/lib/dbConnect';
+//import { dbConnect } from '@/lib/dbConnect';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import User from '../../../models/User';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await dbConnect();
+  //await dbConnect();
 
   if (req.method === 'GET') {
     try {
