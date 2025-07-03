@@ -1,14 +1,13 @@
 // fetch.ts
-import { dbConnect } from "@/lib/dbConnect";
 import Rentrequests from "../../../models/rentrequests";
 import Hirerequest from "../../../models/hirerequests";
 
 export async function getOverviewData() {
-  await dbConnect();
+  //await dbConnect();
 
   const totalRequests = await Rentrequests.countDocuments({});
   const pendingRequests = await Rentrequests.countDocuments({ availability: 'pending' });
-  const acceptedRequests = await Rentrequests.countDocuments({ availability: 'accept' });
+  //const acceptedRequests = await Rentrequests.countDocuments({ availability: 'accept' });
   const totalHRequests = await Hirerequest.countDocuments({});
   const pendingHRequests = await Hirerequest.countDocuments({availability: 'pending' });
 
