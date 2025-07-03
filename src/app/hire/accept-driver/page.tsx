@@ -4,10 +4,17 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
 export interface RequestsCard {
-  _id: string;
+  id: string;
   driverId: string;
   userId: string;
   //days: number;
+  status:string;
+  price:string;
+  pickupDate:string;
+  returnDate:string;
+  pickupLocation:string;
+    star: string;
+
 }
 
 export interface DriverCard {
@@ -15,7 +22,15 @@ export interface DriverCard {
   fullname: string;
   star: string;
   description?: string; // ← Add this if it's used
+  images:string[];
+  brand:string;
+  model:string;
+  price:string;
+  pickupDate:string;
+  returnDate:string;
+  pickupLocation:string
 }
+
 
 function AcceptDriver() {
 
@@ -121,14 +136,14 @@ function AcceptDriver() {
                                         .filter(hireRequests => hireRequests?.status === 'accept' || hireRequests?.status === 'on-going')
                             .map(hireRequests => {
   const matchedCar = drivers.find(car => car._id === hireRequests.driverId);
-  const isExpanded = expandedCardId === hireRequests._id;
-  const currentForm = formData[hireRequests._id] || { star: 0, reason: '' };
+  const isExpanded = expandedCardId === hireRequests.id;
+  const currentForm = formData[hireRequests.id] || { star: 0, reason: '' };
 
   return (
     <div
-      key={hireRequests._id}
+      key={hireRequests.id}
       className="bg-white/10 border border-white/20 rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer"
-      onClick={() => setExpandedCardId(prev => (prev === hireRequests._id ? null : hireRequests._id))}
+      onClick={() => setExpandedCardId(prev => (prev === hireRequests.id ? null : hireRequests.id))}
     >
       <div className="flex flex-col lg:flex-row gap-8">
                           <div className="md:w-1/2">
@@ -167,7 +182,7 @@ function AcceptDriver() {
   onChange={(e) =>
     setFormData(prev => ({
       ...prev,
-      [hireRequests._id]: { ...currentForm, star: Number(e.target.value) }
+      [hireRequests.id]: { ...currentForm, star: Number(e.target.value) }
     }))
   }
 />
@@ -181,7 +196,7 @@ function AcceptDriver() {
   onChange={(e) =>
     setFormData(prev => ({
       ...prev,
-      [hireRequests._id]: { ...currentForm, reason: e.target.value }
+      [hireRequests.id]: { ...currentForm, reason: e.target.value }
     }))
   }
 />
@@ -192,7 +207,7 @@ function AcceptDriver() {
   className="bg-green-500 text-white px-4 py-2 rounded"
   onClick={(e) => {
     e.stopPropagation();
-    handleUpdate('accept', hireRequests._id);
+    handleUpdate('accept', hireRequests.id);
   }}
 >
   Accept
@@ -202,7 +217,7 @@ function AcceptDriver() {
   className="bg-red-500 text-white px-4 py-2 rounded"
   onClick={(e) => {
     e.stopPropagation();
-   handleUpdate('reject', hireRequests._id);
+   handleUpdate('reject', hireRequests.id);
   }}
 >
   Reject

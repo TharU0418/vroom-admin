@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 
 export interface RequestsCard {
-  _id: string;
+  id: string;
   driverId: string;
   userId: string;
   days: number;
@@ -18,7 +18,7 @@ export interface RequestsCard {
 }
 
 export interface DriverCard {
-  _id: string;
+  id: string;
   fullname: string;
   star: string;
   description?: string; // ← Add this if it's used
@@ -142,12 +142,12 @@ function Requests() {
           <div className="max-w-6xl mx-auto px-4 py-8">
             <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
               {hireRequests.map(hireRequests => {
-                const matchedCar = drivers.find(car => car._id === hireRequests.driverId);
-                const isExpanded = expandedCardId === hireRequests._id;
-                const currentForm = formData[hireRequests._id] || { driverId: '', reason: '' };
+                const matchedCar = drivers.find(car => car.id === hireRequests.driverId);
+                const isExpanded = expandedCardId === hireRequests.id;
+                const currentForm = formData[hireRequests.id] || { driverId: '', reason: '' };
                   return (
                     <div
-                      key={hireRequests._id}
+                      key={hireRequests.id}
                       className={`rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer border border-white/20 ${
                             hireRequests.status === 'pending'
                               ? 'bg-red-500/30'
@@ -158,7 +158,7 @@ function Requests() {
                               : 'bg-white/10'
                           }`}
                       //className="bg-white/10 border border-white/20 rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer"
-                      onClick={() => setExpandedCardId(prev => (prev === hireRequests._id ? null : hireRequests._id))}
+                      onClick={() => setExpandedCardId(prev => (prev === hireRequests.id ? null : hireRequests.id))}
                     >
                       <div className="flex flex-col lg:flex-row gap-8">
                         {/* <div className="md:w-1/2">
@@ -199,7 +199,7 @@ function Requests() {
                               onChange={(e) =>
                                 setFormData(prev => ({
                                   ...prev,
-                                  [hireRequests._id]: { ...currentForm, driverId: e.target.value }
+                                  [hireRequests.id]: { ...currentForm, driverId: e.target.value }
                                 }))
                               }
                             />
@@ -213,7 +213,7 @@ function Requests() {
                               onChange={(e) =>
                                 setFormData(prev => ({
                                   ...prev,
-                                  [hireRequests._id]: { ...currentForm, reason: e.target.value }
+                                  [hireRequests.id]: { ...currentForm, reason: e.target.value }
                                 }))
                               }
                             />    
@@ -222,7 +222,7 @@ function Requests() {
                                 className="bg-green-500 text-white px-4 py-2 rounded"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  handleUpdate('available', hireRequests._id);
+                                  handleUpdate('available', hireRequests.id);
                                 }}
                               >
                                 Accept
@@ -231,7 +231,7 @@ function Requests() {
                                 className="bg-red-500 text-white px-4 py-2 rounded"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                handleUpdate('reject', hireRequests._id);
+                                handleUpdate('reject', hireRequests.id);
                                 }}
                               >
                                 Reject

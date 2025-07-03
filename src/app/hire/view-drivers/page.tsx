@@ -1,9 +1,9 @@
 'use client';
-import Link from 'next/link';
+//import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 export interface DriverCard {
-  _id: string;
+  id: string;
   fullname: string;
   email: string;
   contact: number;
@@ -11,6 +11,7 @@ export interface DriverCard {
   images: string[];
   description?: string;
   tour_types: string[]; // Added this field for filtering
+  experience:string;
 }
 
 function ViewDrivers() {
@@ -95,8 +96,8 @@ function ViewDrivers() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {filteredDrivers.map(driver => (
-            <div key={driver._id} className="bg-white/10 border border-white/20 rounded-xl p-4 shadow-lg backdrop-blur">
-              {/* <img
+            <div key={driver.id} className="bg-white/10 border border-white/20 rounded-xl p-4 shadow-lg backdrop-blur">
+              {/* <im
                 src={driver.images[0]}
                 alt={`${driver.fullname}`}
                 className="w-full h-48 object-cover rounded-lg"
