@@ -10,20 +10,14 @@ import { OverviewCardsGroup } from "./_components/overview-cards";
 import { OverviewCardsSkeleton } from "./_components/overview-cards/skeleton";
 import { RegionLabels } from "./_components/region-labels";
 
-// Make the page dynamic so it can use searchParams
-export const dynamic = "force-dynamic";
+type PropsType = {
+  searchParams: Promise<{
+    selected_time_frame?: string;
+  }>;
+};
 
-// No custom type — let Next.js handle it
-export default function Home({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  const selected_time_frame =
-    typeof searchParams?.selected_time_frame === "string"
-      ? searchParams.selected_time_frame
-      : "";
-
+export default async function Home({ searchParams }: PropsType) {
+  const { selected_time_frame } = await searchParams;
   const extractTimeFrame = createTimeFrameExtractor(selected_time_frame);
 
   return (
