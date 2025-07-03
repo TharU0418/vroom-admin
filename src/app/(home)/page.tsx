@@ -10,14 +10,23 @@ import { OverviewCardsGroup } from "./_components/overview-cards";
 import { OverviewCardsSkeleton } from "./_components/overview-cards/skeleton";
 import { RegionLabels } from "./_components/region-labels";
 
+// If you want this page to render dynamically at runtime (for query params), use this:
+export const dynamic = "force-dynamic";
+
+// Correct typing — no Promise!
 type PropsType = {
   searchParams?: {
     selected_time_frame?: string;
+    [key: string]: string | string[] | undefined;
   };
 };
 
 export default function Home({ searchParams }: PropsType) {
-  const selected_time_frame = searchParams?.selected_time_frame ?? "";
+  const selected_time_frame =
+    typeof searchParams?.selected_time_frame === "string"
+      ? searchParams.selected_time_frame
+      : "";
+
   const extractTimeFrame = createTimeFrameExtractor(selected_time_frame);
 
   return (
