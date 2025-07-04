@@ -86,7 +86,9 @@ function AddCars() {
   const years = Array.from(new Array(currentYear - startYear + 1), (_, i) => currentYear - i);
 
   const districts = Object.keys(locations);
-  const cities = formData.district ? locations[formData.district] : [];
+const cities = formData.district && formData.district in locations
+  ? locations[formData.district as keyof typeof locations]
+  : [];
 
   return (
     <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
