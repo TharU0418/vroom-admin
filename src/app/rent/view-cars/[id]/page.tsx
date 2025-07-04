@@ -1,7 +1,6 @@
 // app/car/[id]/page.tsx
 
 import mongoose from 'mongoose';
-import Car from '../../../../../models/Car';
 import { notFound } from 'next/navigation';
 import ImageSlider from '@/components/ImageSlider';
 import ViewCarForm from './ViewCarForm';
@@ -13,10 +12,25 @@ interface CarDetailProps {
   };
 }
 
+interface Car {
+  id: string;
+  brand: string;
+  model: string;
+  price: number;
+  year: number;
+  images: string[];
+  location?: string;
+  description?: string;
+    status?: string;
+
+}
+
 export default async function CarDetail({ params }: CarDetailProps) {
   await mongoose.connect(process.env.MONGODB_URI!);
 
-  const car = await Car.findById(params.id).lean();
+ const car = await Car.findById(params.id).lean();
+
+ //const car = {}
 
   if (!car) return notFound();
 
