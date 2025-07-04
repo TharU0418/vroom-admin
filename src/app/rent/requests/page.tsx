@@ -119,7 +119,7 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
   }
 
   try {
-    const res = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent-requests`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
   console.log('dates',rentRequest.pickupDate, id)
 
   try {
-    const res = await fetch(`https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -263,9 +263,14 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
                                 <button
                                   className="bg-green-500 text-white px-4 py-2 rounded"
                                   onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleUpdate('accept', rentRequest.id, matchedCar.id);
-                                  }}
+  e.stopPropagation();
+  if (!matchedCar) {
+    console.error('No matched car found for this request');
+    return;
+  }
+  handleUpdate('accept', rentRequest.id, matchedCar.id);
+}}
+
                                 >
                                   Accept
                                 </button>
@@ -273,9 +278,14 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
                                 <button
                                   className="bg-red-500 text-white px-4 py-2 rounded"
                                   onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleUpdate('reject', rentRequest.id,matchedCar.id);
-                                  }}
+  e.stopPropagation();
+  if (!matchedCar) {
+    console.error('No matched car found for this request');
+    return;
+  }
+  handleUpdate('reject', rentRequest.id, matchedCar.id);
+}}
+
                                 >
                                   Reject
                                 </button>
