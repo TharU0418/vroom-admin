@@ -154,7 +154,8 @@ const zip = new JSZip();
         const blob = await response.blob();
 
         // Get file extension and create a filename
-        const ext = images[i].split('.').pop().split('?')[0]; // handles URLs with query params
+        //const ext = images[i].split('.').pop().split('?')[0]; // handles URLs with query params
+        const ext = images[i].split('.').pop()?.split('?')[0] || 'jpg';
         folder.file(`image${i + 1}.${ext}`, blob);
       } catch (err) {
         console.error("Error downloading image:", err);
