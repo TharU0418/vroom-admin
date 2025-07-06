@@ -49,7 +49,7 @@ function AddDrivers() {
 
    
 
-    const res = await fetch(`https://16nk2ru297.execute-api.eu-north-1.amazonaws.com/driver/drivers`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DRIVERS}`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

@@ -58,7 +58,7 @@ function AddCars() {
 
     console.log('payload', payload)
 
-    const res = await fetch('https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rents/rent', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

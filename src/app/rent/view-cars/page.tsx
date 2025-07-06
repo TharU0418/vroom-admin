@@ -25,7 +25,7 @@ function ViewCars() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('https://qjfm2z3b55.execute-api.eu-north-1.amazonaws.com/rent-request/rent');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`);
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {

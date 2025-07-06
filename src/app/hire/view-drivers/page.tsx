@@ -23,7 +23,7 @@ function ViewDrivers() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('https://16nk2ru297.execute-api.eu-north-1.amazonaws.com/driver/drivers');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DRIVERS}`);
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {
