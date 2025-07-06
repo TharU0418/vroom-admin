@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react'
-//import ImageSlider from '@/components/ImageSlider';
+import ImageSlider from '@/components/ImageSlider';
 import JSZip from 'jszip';
 import { saveAs } from "file-saver";
 
@@ -20,26 +20,26 @@ export interface CarCard {
   images: string[];
   location?: string;
   description?: string; // ← Add this if it's used
-  report:String
+  report:string;
 }
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  mobileNumber: string;
-  location: string;
-}
+// interface User {
+//   id: string;
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   mobileNumber: string;
+//   location: string;
+// }
 
 
 function ViewSellCars() {
   const [sellRequests, setSellRequests] = useState<Sell[]>([]);
-  const [priceRange, setPriceRange] = useState(1000);
-  const [selectedType, setSelectedType] = useState('all');
+  //const [priceRange, setPriceRange] = useState(1000);
+  //const [selectedType, setSelectedType] = useState('all');
   const [loading, setLoading] = useState(true)
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [formData, setFormData] = useState<{ [key: string]: { report: string } }>({});
-  const [users, setUsers] = useState<User[]>([]);
+  //const [users, setUsers] = useState<User[]>([]);
     const [uploading, setUploading] = useState<{ [key: string]: boolean }>({});
  // const [sellCar, setSellCar] = useState<RequestsCard[]>([]);
 
@@ -61,34 +61,36 @@ useEffect(() => {
     }
   };
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch('/api/users');
-      const contentType = response.headers.get('content-type');
+  // const fetchUsers = async () => {
+  //   try {
+  //     const response = await fetch('/api/users');
+  //     const contentType = response.headers.get('content-type');
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      if (contentType && contentType.includes('application/json')) {
-        const data = await response.json();
-        setUsers(data);
-      } else {
-        throw new Error('Expected JSON response for users');
-      }
-    } catch (error) {
-      console.error('Failed to fetch users:', error);
-    }
-  };
+  //     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  //     if (contentType && contentType.includes('application/json')) {
+  //       const data = await response.json();
+  //       setUsers(data);
+  //     } else {
+  //       throw new Error('Expected JSON response for users');
+  //     }
+  //   } catch (error) {
+  //     console.error('Failed to fetch users:', error);
+  //   }
+  // };
 
   // Call all fetches only once on mount
   const fetchAllData = async () => {
     setLoading(true);
-    await Promise.all([ fetchCars(), fetchUsers()]);
-    setLoading(false);
+//    await Promise.all([ fetchCars(), fetchUsers()]);
+    await Promise.all([ fetchCars()]);
+  
+setLoading(false);
   };
   fetchAllData();
 }, []);
 
 
-  const [statusForm, setStatusForm] = useState<{ [key: string]: { status: string;} }>({});
+  //const [statusForm, setStatusForm] = useState<{ [key: string]: { status: string;} }>({});
 
   const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string) => {
     

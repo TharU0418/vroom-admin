@@ -113,13 +113,13 @@ function ViewDrivers() {
               <p className="text-white mb-2">Experience Years: {driver.experience}</p>
               <p className="text-white mb-2">Star: {driver.star}</p>
               <p className="text-white mb-2">Description: {driver.description}</p>
-              <p className="text-white mb-2">Tour Types:
+              <p className="text-white mb-2">Tour Types:</p>
                 <ul>
                   {driver.tour_types.map((type, index) => (
                     <li key={index}>{type}</li>
                   ))}
                 </ul>
-              </p>
+              
 
                <button
                     onClick={() => copyToClipboard(driver.email)}

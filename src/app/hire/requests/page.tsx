@@ -77,7 +77,7 @@ function Requests() {
 
     const fetchDrivers = async () => {
       try {
-        const response = await fetch('/api/hire-drivers');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DRIVERS}`);
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {
