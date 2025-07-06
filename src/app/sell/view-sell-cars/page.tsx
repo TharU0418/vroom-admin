@@ -37,10 +37,10 @@ function ViewSellCars() {
   //const [selectedType, setSelectedType] = useState('all');
   const [loading, setLoading] = useState(true)
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
-  const [formData, setFormData] = useState<{ [key: string]: { report: string } }>({});
   //const [users, setUsers] = useState<User[]>([]);
     const [uploading, setUploading] = useState<{ [key: string]: boolean }>({});
  // const [sellCar, setSellCar] = useState<RequestsCard[]>([]);
+const [formData, setFormData] = useState<{ [key: string]: { report: string; reason: string } }>({});
 
 useEffect(() => {
   const fetchCars = async () => {
