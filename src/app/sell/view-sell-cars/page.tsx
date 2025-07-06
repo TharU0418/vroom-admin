@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react'
-import ImageSlider from '@/components/ImageSlider';
 import JSZip from 'jszip';
 import { saveAs } from "file-saver";
 
