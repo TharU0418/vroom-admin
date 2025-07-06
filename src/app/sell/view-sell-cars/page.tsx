@@ -20,6 +20,13 @@ export interface CarCard {
   location?: string;
   description?: string; // ← Add this if it's used
   report:string;
+  engine_capacity:string;
+  transmission:string;
+  condition:string;
+  status:string;
+  body_type:string;
+  mobileNum:string;
+  fueltype:string;
 }
 // interface User {
 //   id: string;
@@ -32,7 +39,7 @@ export interface CarCard {
 
 
 function ViewSellCars() {
-  const [sellRequests, setSellRequests] = useState<Sell[]>([]);
+const [sellRequests, setSellRequests] = useState<CarCard[]>([]);
   //const [priceRange, setPriceRange] = useState(1000);
   //const [selectedType, setSelectedType] = useState('all');
   const [loading, setLoading] = useState(true)
@@ -351,7 +358,7 @@ const handleReuploadImages = async (carId: string) => {
                           <p className="text-white text-m mb-2">Model : {rentRequest?.model} </p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                          <p className="text-white text-m mb-2">Mileage : {rentRequest?.mileage}</p>
+                          {/* <p className="text-white text-m mb-2">Mileage : {rentRequest?.mileage}</p> */}
                           <p className="text-white text-m mb-2">Fuel type : {rentRequest?.fueltype}</p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
@@ -449,7 +456,7 @@ const handleReuploadImages = async (carId: string) => {
                             className="bg-blue-500 text-white px-4 py-2 rounded"
                             onClick={async (e) => {
                               e.stopPropagation();
-                              await downloadImagesAsZip(rentRequest.images || [], rentRequest._id);
+                              await downloadImagesAsZip(rentRequest.images || [], rentRequest.id);
                             }}
                           >
                             Download Images
