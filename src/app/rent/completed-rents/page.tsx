@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 export interface RequestsCard {
-  _id: string;
+  id: string;
   carId: string;
   userId: string;
   days: number;
@@ -14,7 +14,7 @@ export interface RequestsCard {
 }
 
 export interface CarCard {
-  _id: string;
+  id: string;
   brand: string;
   model: string;
   price: number;
@@ -36,7 +36,7 @@ function AcceptRequests() {
   useEffect(() => {
     const fetchRentRequests = async () => {
       try {
-        const response = await fetch('/api/rent-requests');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`);
         const data = await response.json();
         setRentRequests(data);
         setLoading(false);
@@ -48,7 +48,7 @@ function AcceptRequests() {
 
     const fetchCars = async () => {
       try {
-        const response = await fetch('/api/rent-cars');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}` );
         const data = await response.json();
         setCars(data);
         setLoading(false);
@@ -87,7 +87,7 @@ function AcceptRequests() {
 
       // Optional: Refresh rentRequests after update
       setRentRequests(prev =>
-        prev.map(req => (req._id === updated._id ? updated : req))
+        prev.map(req => (req.id === updated._id ? updated : req))
       );
     } catch (err) {
       console.error('Update failed:', err);
@@ -103,18 +103,18 @@ function AcceptRequests() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
           {rentRequests
-            .filter(rentRequest => rentRequest?.status === 'completed')
+          //  .filter(rentRequest => rentRequest?.status === 'completed')
             .map(rentRequest => {
-              const matchedCar = cars.find(car => car._id === rentRequest.carId);
-              const isExpanded = expandedCardId === rentRequest._id;
-              const currentForm = statusForm[rentRequest._id] || { status: 'available' };
+              const matchedCar = cars.find(car => car.id === rentRequest.carId);
+              const isExpanded = expandedCardId === rentRequest.id;
+              const currentForm = statusForm[rentRequest.id] || { status: 'available' };
 
               return (
                 <div
-                  key={rentRequest._id}
+                  key={rentRequest.id}
                   className="bg-white/10 border border-white/20 rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer"
                   onClick={() =>
-                    setExpandedCardId(prev => (prev === rentRequest._id ? null : rentRequest._id))
+                    setExpandedCardId(prev => (prev === rentRequest.id ? null : rentRequest.id))
                   }
                 >
                   <div className="flex flex-col lg:flex-row gap-8">
@@ -152,7 +152,7 @@ function AcceptRequests() {
                           onChange={(e) =>
                             setStatusForm(prev => ({
                               ...prev,
-                              [rentRequest._id]: {
+                              [rentRequest.id]: {
                                 ...currentForm,
                                 status: e.target.value
                               }
@@ -176,7 +176,7 @@ function AcceptRequests() {
                             onChange={(e) =>
                               setStatusForm(prev => ({
                                 ...prev,
-                                [rentRequest._id]: {
+                                [rentRequest.id]: {
                                   ...currentForm,
                                   repairDays: Number(e.target.value)
                                 }
@@ -190,7 +190,7 @@ function AcceptRequests() {
                         className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleUpdate(rentRequest._id);
+                          handleUpdate(rentRequest.id);
                         }}
                       >
                         Update

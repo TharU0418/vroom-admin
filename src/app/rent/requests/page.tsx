@@ -57,7 +57,9 @@ useEffect(() => {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
+        console.log('req', data)
         setRentRequests(data);
+        console.log('req 2', rentRequests)
       } else {
         throw new Error('Expected JSON response');
       }
@@ -75,6 +77,7 @@ useEffect(() => {
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
         setCars(data);
+        console.log('car', cars)
       } else {
         throw new Error('Expected JSON response');
       }
@@ -110,6 +113,12 @@ useEffect(() => {
   fetchAllData();
 }, []);
 
+useEffect(() => {
+  console.log('rentRequests loaded:', rentRequests);
+}, [rentRequests]);
+
+
+console.log('rr', rentRequests, cars)
 
 const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, id: string) => {
   const rentRequest = rentRequests.find(r => r.id === rentRequestId);
@@ -119,7 +128,7 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
   }
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -170,7 +179,7 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
 
 
   
-    if (loading) return <div className="text-white text-center mt-10">Loading rent-requests...</div>;
+    if (!loading) return <div className="text-white text-center mt-10">Loading rent-requests...</div>;
         return (
             <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
                 <h1 className="text-4xl font-bold text-white mb-8 text-center">Rent Car Requests</h1>
@@ -182,17 +191,17 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
                   {/* <h1 className="text-4xl text-white font-bold mb-8 text-center">Available Cars</h1> */}
                   <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                     {rentRequests
-                   //.filter(rentRequest => rentRequest?.status === 'pending')
+                   .filter(rentRequest => rentRequest?.status === 'pending')
                     .map(rentRequest => {
                       const matchedCar = cars.find(car => car.id === rentRequest.carId);
                       const isExpanded = expandedCardId === rentRequest.id;
                       const currentForm = formData[rentRequest.id] || { star: 0, reason: '' };
-                      const matchedUser = users.find(user => user.email === rentRequest.userId);
+                   //   const matchedUser = users.find(user => user.email === rentRequest.userId);
 
                       console.log('1', matchedCar)
                       console.log('2', isExpanded)
-                      console.log('3', currentForm)
-                      console.log('4', matchedUser)
+                  //    console.log('3', currentForm)
+                    //  console.log('4', matchedUser)
                       console.log('5', users)
 
                       return (
@@ -215,8 +224,8 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
                           <h2 className="text-xl text-white font-semibold mb-1">
                             {matchedCar ? `${matchedCar.brand} ${matchedCar.model}` : 'Car not found'}
                           </h2>
-                          <p className="text-white text-m mb-2">User Name: {matchedUser?.firstName} {matchedUser?.lastName}</p>
-                          <p className="text-white text-m mb-2">Mobile Number: {matchedUser?.mobileNumber || 'N/A'}</p>
+                          {/* <p className="text-white text-m mb-2">User Name: {matchedUser?.firstName} {matchedUser?.lastName}</p>
+                          <p className="text-white text-m mb-2">Mobile Number: {matchedUser?.mobileNumber || 'N/A'}</p> */}
                           <p className="text-white text-m mb-2">Year: {matchedCar?.year}</p>
                                 <p className="text-white text-m mb-2">Price: ${matchedCar?.price} for a day </p>
                                 <p className="text-white text-m mb-2">Requested for {rentRequest?.days} days</p>

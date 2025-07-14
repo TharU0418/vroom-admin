@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 export interface CarCard {
-  _id: string;
+  id: string;
   brand: string;
   model: string;
   price: number;
@@ -25,7 +25,7 @@ function ViewCars() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT_REQUESTS}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_RENT}`);
         const contentType = response.headers.get('content-type');
 
         if (!response.ok) {
@@ -77,9 +77,9 @@ function ViewCars() {
           {filteredCars.length > 0 ? (
             filteredCars.map((car) => (
               <div
-                key={car._id}
+                key={car.id}
                 className="bg-white/10 border border-white/20 rounded-xl cursor-pointer p-4 shadow-lg backdrop-blur"
-                onClick={() => router.push(`/rent/view-cars/${car._id}`)}
+                onClick={() => router.push(`/rent/view-cars/${car.id}`)}
               >
                 <img
                   src={car.images[0]}

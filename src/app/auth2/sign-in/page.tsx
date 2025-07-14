@@ -51,7 +51,7 @@ console.log(formData);
 
   return (
     // <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#f96c6c] to-[#f60f0f] p-4"> 
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#f96c6c] to-[#f60f0f] p-8"> 
+        <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-r from-[#f96c6c] to-[#f60f0f] p-8"> 
 
       {/* from-blue-500 to-purple-600 */}
       <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
