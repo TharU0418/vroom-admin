@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
 export interface RequestsCard {
@@ -213,10 +214,12 @@ const handleUpdate = async (status: 'accept' | 'reject', rentRequestId: string, 
                           <div className="flex flex-col lg:flex-row gap-8">
                           <div className="md:w-1/2">
                           {matchedCar?.images?.[0] && (
-                            <img
+                            <Image
                               src={matchedCar.images[0]}
                               alt={`${matchedCar.brand} ${matchedCar.model}`}
                               className="w-full h-58 object-cover rounded-lg mb-2"
+                               width={100}
+                          height={100}
                             />
                           )}
                           </div>

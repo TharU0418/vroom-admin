@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -81,10 +82,12 @@ function ViewCars() {
                 className="bg-white/10 border border-white/20 rounded-xl cursor-pointer p-4 shadow-lg backdrop-blur"
                 onClick={() => router.push(`/rent/view-cars/${car.id}`)}
               >
-                <img
+                <Image
                   src={car.images[0]}
                   alt={`${car.brand} ${car.model}`}
                   className="w-full h-48 object-cover rounded-lg"
+                   width={100}
+                          height={100}
                 />
                 <h2 className="text-xl text-white font-semibold mb-1">
                   {car.brand} {car.model} ({car.year})
