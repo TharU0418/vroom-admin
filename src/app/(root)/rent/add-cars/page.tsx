@@ -2,7 +2,7 @@
 
 import { FileUpload } from '@/components/ui/file-upload';
 import React, { useState } from 'react';
-import { locations } from '../../../../public/data/location';
+import { locations } from '../../../../../public/data/location';
 
 function AddCars() {
   const [formData, setFormData] = useState({

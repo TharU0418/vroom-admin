@@ -1,7 +1,7 @@
 import { compactFormat } from "@/lib/format-number";
 import { OverviewCard } from "./card";
 import * as icons from "./icons";
-import { getOverviewData } from "../../../../../pages/api/fetch";
+import { getOverviewData } from "../../../../../../pages/api/fetch";
 
 export async function OverviewCardsGroup() {
   const {
