@@ -13,7 +13,7 @@ export interface ConsultationRequestsCard {
 
 const consultationTypes = ['All', 'Full', 'Leasing', 'Register', 'Insurence'];
 
-function ViewConsultationsRequests() {
+function OnGoingRequests() {
     const [consultationRequests, setConsultationRequests] = useState<ConsultationRequestsCard[]>([]);
     const [selectedType, setSelectedType] = useState<string>('All');
 
@@ -30,7 +30,7 @@ function ViewConsultationsRequests() {
                 if (contentType && contentType.includes('application/json')) {
                     const data = await response.json();
                     const filteredCars = data.filter((caersData1: { status: string }) => 
-            caersData1.status === 'pending'
+            caersData1.status === 'on-going'
         );
                     setConsultationRequests(filteredCars);
                 } else {
@@ -44,7 +44,7 @@ function ViewConsultationsRequests() {
         fetchConsultationRequests();
     }, []);
 
-    const handleStatusUpdate = async (id: string, status: 'on-going') => {
+    const handleStatusUpdate = async (id: string, status: 'completed' | 'rejected') => {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
                 method: 'PATCH', // or 'POST' depending on your API
@@ -54,8 +54,8 @@ function ViewConsultationsRequests() {
                 body: JSON.stringify({ 
                    id:id,
                    status: status, }),
-                   
             });
+
             if (!response.ok) {
                 throw new Error('Failed to update status');
             }
@@ -111,17 +111,17 @@ function ViewConsultationsRequests() {
                                 </div>
                                 <div className="flex gap-4 items-start">
                                     <button
-                                        onClick={() => handleStatusUpdate(consultationRequest.id, 'on-going')}
+                                        onClick={() => handleStatusUpdate(consultationRequest.id, 'completed')}
                                         className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
                                     >
-                                        Accept
+                                        Completed
                                     </button>
-                                    <button
+                                    {/* <button
                                         onClick={() => handleStatusUpdate(consultationRequest.id, 'rejected')}
                                         className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
                                     >
                                         Reject
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         </div>
@@ -132,4 +132,4 @@ function ViewConsultationsRequests() {
     );
 }
 
-export default ViewConsultationsRequests;
+export default OnGoingRequests

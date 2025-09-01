@@ -75,6 +75,10 @@ export const NAV_DATA = [
           {
             title: "Completed Hire Requests",
             url: "/hire/completed-hirs",
+          },
+          {
+            title: "Live Location",
+            url: "/hire/live-location",
           }
 
 
@@ -110,9 +114,13 @@ export const NAV_DATA = [
             url: "/consultations/view-consultations-requests",
           },
           {
-            title: "View Sell Requests",
-            url: "/sell/sell-requests",
-          }
+            title: "On Going Consultation Requests",
+            url: "/consultations/on-going-requests",
+          },
+          {
+            title: "Completed Consultation",
+            url: "/consultations/complted-requests",
+          },
 
           
         ],

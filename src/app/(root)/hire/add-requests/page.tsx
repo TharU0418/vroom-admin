@@ -94,14 +94,17 @@ const [loading, setLoading] = useState(false);
                     Name <span className="text-red-600">*</span>
                   </label>
                   <input
-                    name="name"
-                    type="text"
+                    name="userId"
+                   // type="text"
                     onChange={handleChange}
+                    value={formData.userId}
                     placeholder="Your full name"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
                     required
                   />
                 </div>
+
+               
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col">
@@ -124,7 +127,7 @@ const [loading, setLoading] = useState(false);
                 value={formData.returnDate}
                 onChange={handleChange}
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
-                required
+               // required
               />
             </div>
           </div>

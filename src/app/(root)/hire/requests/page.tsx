@@ -53,7 +53,10 @@ function Requests() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         if (contentType && contentType.includes('application/json')) {
           const data = await response.json();
-          setHireRequests(data);
+          const filteredCars = data.filter((caersData1: { status: string }) => 
+            caersData1.status === 'pending'
+        );
+          setHireRequests(filteredCars);
           setLoading(false);
         } else {
           throw new Error('Expected JSON response');
@@ -108,6 +111,7 @@ function Requests() {
       const updated = await res.json();
       setNotificationMessage(`${status.toUpperCase()} successful`);
       setShowNotification(true);
+      alert(`${status.toUpperCase()} successful`);
       setTimeout(() => setShowNotification(false), 5000);
     } catch (err) {
       console.error(err);

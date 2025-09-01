@@ -13,7 +13,7 @@ export interface ConsultationRequestsCard {
 
 const consultationTypes = ['All', 'Full', 'Leasing', 'Register', 'Insurence'];
 
-function ViewConsultationsRequests() {
+function CompltedRequests() {
     const [consultationRequests, setConsultationRequests] = useState<ConsultationRequestsCard[]>([]);
     const [selectedType, setSelectedType] = useState<string>('All');
 
@@ -30,7 +30,7 @@ function ViewConsultationsRequests() {
                 if (contentType && contentType.includes('application/json')) {
                     const data = await response.json();
                     const filteredCars = data.filter((caersData1: { status: string }) => 
-            caersData1.status === 'pending'
+            caersData1.status === 'completed'
         );
                     setConsultationRequests(filteredCars);
                 } else {
@@ -44,32 +44,7 @@ function ViewConsultationsRequests() {
         fetchConsultationRequests();
     }, []);
 
-    const handleStatusUpdate = async (id: string, status: 'on-going') => {
-        try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CONSULTATION}`, {
-                method: 'PATCH', // or 'POST' depending on your API
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                   id:id,
-                   status: status, }),
-                   
-            });
-            if (!response.ok) {
-                throw new Error('Failed to update status');
-            }
-      alert(`${status.toUpperCase()} successful`);
-
-            // Update local state
-            setConsultationRequests(prev =>
-                prev.map(req => (req.id === id ? { ...req, status } : req))
-            );
-        } catch (error) {
-            console.error('Error updating status:', error);
-        }
-    };
-
+   
     const filteredRequests =
         selectedType === 'All'
             ? consultationRequests
@@ -110,18 +85,13 @@ function ViewConsultationsRequests() {
                                     <p className="text-white mb-2">Status: {consultationRequest.status || 'pending'}</p>
                                 </div>
                                 <div className="flex gap-4 items-start">
-                                    <button
-                                        onClick={() => handleStatusUpdate(consultationRequest.id, 'on-going')}
-                                        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-                                    >
-                                        Accept
-                                    </button>
-                                    <button
+                                    
+                                    {/* <button
                                         onClick={() => handleStatusUpdate(consultationRequest.id, 'rejected')}
                                         className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
                                     >
                                         Reject
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         </div>
@@ -132,4 +102,4 @@ function ViewConsultationsRequests() {
     );
 }
 
-export default ViewConsultationsRequests;
+export default CompltedRequests

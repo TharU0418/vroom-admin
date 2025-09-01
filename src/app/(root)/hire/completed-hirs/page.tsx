@@ -36,7 +36,10 @@ function AcceptDriver() {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE}`);
         const data = await response.json();
-        setHireRequests(data);
+        const filteredCars = data.filter((caersData1: { status: string }) => 
+            caersData1.status === 'completed' || caersData1.status === 'reject' || caersData1.status === 'cancel'
+        );
+        setHireRequests(filteredCars);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch hire-requests:', error);
@@ -64,7 +67,7 @@ function AcceptDriver() {
 
   // ✅ Filter the requests by selected status
   const filteredRequests = hireRequests
-    .filter(req => ['accept', 'reject', 'cancel'].includes(req.status.toLowerCase()))
+    .filter(req => ['completed', 'reject', 'cancel'].includes(req.status.toLowerCase()))
     .filter(req => selectedStatus === 'all' || req.status === selectedStatus);
 
   return (
@@ -79,7 +82,7 @@ function AcceptDriver() {
           onChange={e => setSelectedStatus(e.target.value)}
         >
           <option value="all">All</option>
-          <option value="accept">Accepted</option>
+          <option value="completed">Completed</option>
           <option value="reject">Rejected</option>
           <option value="cancel">Cancelled</option>
         </select>
@@ -93,7 +96,7 @@ function AcceptDriver() {
             <div
               key={hireRequest.id}
               className={`rounded-xl p-4 shadow-lg backdrop-blur cursor-pointer border border-white/20 ${
-                hireRequest.status === 'accept'
+                hireRequest.status === 'completed'
                   ? 'bg-green-500/30'
                   : hireRequest.status === 'reject'
                   ? 'bg-red-500/30'
