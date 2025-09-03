@@ -25,9 +25,20 @@ const [notificationMessage, setNotificationMessage] = useState('');
   //const [error, setError] = useState('');
 
  const handleSubmit = async (e: React.FormEvent) => {
+
+  console.log('ev',formData.email)
+
+  if (formData.email !== 'thth@gmail.com') {
+  setNotificationMessage('Wrong Email');
+  setShowNotification(true);
+  setTimeout(() => setShowNotification(false), 5000);
+  return;
+}
+
+
     e.preventDefault();
   try {
-  const res = await fetch(`https://dsds.execute-api.eu-north-1.amazonaws.com/signin/sign-in`, {
+  const res = await fetch(`https://3pu48jrdxd.execute-api.eu-north-1.amazonaws.com/login/signin`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
@@ -46,18 +57,8 @@ const [notificationMessage, setNotificationMessage] = useState('');
           
   if (!res.ok) throw new Error(data.error || 'Login failed');
 
-  const { accessToken, idToken } = data.tokens;
-
-  // Optional: store tokens temporarily in memory or localStorage
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('idToken', idToken);
-//document.cookie = `accessToken=${accessToken}; path=/;`;
-
-  //setUser(data.user);
-  console.log('data', data)
-  console.log('credentials', data.tokens)
-  console.log('credentials', data.tokens)
-
+ 
+ 
  
   
 

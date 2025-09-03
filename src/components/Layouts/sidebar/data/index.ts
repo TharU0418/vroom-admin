@@ -79,10 +79,7 @@ export const NAV_DATA = [
           {
             title: "Live Location",
             url: "/hire/live-location",
-          }
-
-
-          
+          } 
         ],
       },
        {
@@ -96,9 +93,7 @@ export const NAV_DATA = [
           {
             title: "View Sell Requests",
             url: "/sell/sell-requests",
-          }
-
-          
+          }          
         ],
       },
       {
