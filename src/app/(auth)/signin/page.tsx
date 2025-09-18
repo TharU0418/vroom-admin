@@ -57,9 +57,11 @@ const [notificationMessage, setNotificationMessage] = useState('');
           
   if (!res.ok) throw new Error(data.error || 'Login failed');
 
+     const { email } = data;
+
  
- 
- 
+ localStorage.setItem('userEmail', email);
+
   
 
   router.push('/');

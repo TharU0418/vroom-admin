@@ -2,9 +2,12 @@
 
 //import { FileUpload } from '@/components/ui/file-upload';
 import React, { useState } from 'react';
+import { locations } from '../../../../../public/data/location';
 
 function AddDrivers() {
   const [formData, setFormData] = useState({
+     district: '',
+    city: '',
     fullname: '',
     email: '',
     contact: '',
@@ -66,6 +69,10 @@ function AddDrivers() {
 
     
   };
+   const districts = Object.keys(locations);
+   const cities = formData.district && formData.district in locations
+     ? locations[formData.district as keyof typeof locations]
+     : [];
 
   return (
     <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
@@ -113,20 +120,7 @@ function AddDrivers() {
 
         {/* Star and Experience */}
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-white mb-2">Star</label>
-            <select
-              className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black"
-              required
-              value={formData.star}
-              onChange={(e) => setFormData({ ...formData, star: e.target.value })}
-            >
-              <option value="">Select Star</option>
-              {[1, 2, 3, 4].map((n) => (
-                <option key={n} value={n}>{n}</option>
-              ))}
-            </select>
-          </div>
+          
           <div>
             <label className="block text-white mb-2">Experience</label>
             <select
@@ -138,6 +132,43 @@ function AddDrivers() {
               <option value="">Select Experience Years</option>
               {[1, 2, 3, 4].map((n) => (
                 <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-white mb-2">Select District</label>
+            <select
+              value={formData.district}
+              onChange={(e) =>
+                setFormData({ ...formData, district: e.target.value, city: '' })
+              }
+              className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black"
+              required
+            >
+              <option value="">-- Choose a District --</option>
+              {districts.map((district) => (
+                <option key={district} value={district}>
+                  {district}
+                </option>
+              ))}
+            </select>
+
+            <label className="block text-white mb-2 mt-4">Select City</label>
+            <select
+              value={formData.city}
+              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+              className="w-full p-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-black"
+              required
+              disabled={!formData.district}
+            >
+              <option value="">-- Choose a City --</option>
+              {cities.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
               ))}
             </select>
           </div>

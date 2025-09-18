@@ -118,6 +118,37 @@ function Requests() {
     }
   };
 
+
+  const handleUpdate2 = async (driverStatus: 'assigned' | 'not_assigned', hireRequestId: string) => {
+    console.log("handleUpdate2 called with: driverStatus", driverStatus, 'hireRequestId', hireRequestId, 'driver id', formData[hireRequestId]?.driverId);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE_REQUESTS}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: hireRequestId,
+          driverStatus: driverStatus,
+          driverId: formData[hireRequestId]?.driverId,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to update hire request');
+      }
+
+      const updated = await res.json();
+      console.log('Update response:', updated);
+      setNotificationMessage(`${status.toUpperCase()} successful`);
+      setShowNotification(true);
+      alert(`${status.toUpperCase()} successful`);
+      setTimeout(() => setShowNotification(false), 5000);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   if (loading) return <div className="text-white text-center mt-10">Loading hire-requests...</div>;
 
   return (
@@ -205,6 +236,7 @@ function Requests() {
                           }))
                         }
                       />
+                      
                       <div className="flex gap-4 mt-2">
   <button
     className={`px-4 py-2 rounded text-white ${
@@ -239,6 +271,23 @@ function Requests() {
   >
     Reject
   </button>
+
+  {/* <button
+    className={`px-4 py-2 rounded text-white ${
+      currentForm.driverId.trim()
+        ? 'bg-blue-500 hover:bg-blue-600 cursor-pointer'
+        : 'bg-blue-300 cursor-not-allowed'
+    }`}
+    disabled={!currentForm.driverId.trim()}
+    onClick={(e) => {
+      e.stopPropagation();
+      if (currentForm.driverId.trim()) {
+        handleUpdate2('assigned', hireRequest.id);
+      }
+    }}
+  >
+    Assign
+  </button> */}
 </div>
 
                     </div>

@@ -139,6 +139,7 @@ function AcceptDriver() {
                 <p className="text-white text-m mb-2">Pickup Location: {hireRequest?.pickupLocation}</p>
                 <p className="text-white text-m mb-2">Pickup Time: {hireRequest?.pickupTime}</p>
                 <p className="text-white text-m mb-2">Message: {hireRequest?.message}</p>
+                 <p className="text-white text-m mb-2">Message: {hireRequest?.driverId}</p>
               </div>
               {isExpanded && (
                     <div className="mt-4 space-y-2">

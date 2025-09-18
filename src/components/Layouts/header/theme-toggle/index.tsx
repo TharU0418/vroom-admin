@@ -28,11 +28,11 @@ export function ThemeToggleSwitch() {
 
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "dark" : "dark")}
+      onClick={() => setTheme( "dark")}
       className="group rounded-full bg-gray-3 p-[5px] text-[#111928] outline-1 outline-primary focus-visible:outline dark:bg-[#020D1A] dark:text-current"
     >
       <span className="sr-only">
-        Switch to {theme === "light" ? "dark" : "light"} mode
+        Switch to {theme === "light" ? "dark" : "dark"} mode
       </span>
 
       <span aria-hidden className="relative flex gap-2.5">
