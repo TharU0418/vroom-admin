@@ -89,7 +89,7 @@ function Requests() {
     fetchDrivers();
   }, []);
 
-  const handleUpdate = async (status: 'accept' | 'reject', hireRequestId: string) => {
+  const handleUpdate = async (status: 'accept' | 'reject',driverStatus: 'pending' | 'reject', hireRequestId: string) => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_HIRE_REQUESTS}`, {
         method: 'PATCH',
@@ -101,6 +101,7 @@ function Requests() {
           status: status,
           reason: formData[hireRequestId]?.reason,
           driverId: formData[hireRequestId]?.driverId,
+          driverStatus: driverStatus,
         }),
       });
 
@@ -248,7 +249,7 @@ function Requests() {
     onClick={(e) => {
       e.stopPropagation();
       if (currentForm.driverId.trim()) {
-        handleUpdate('accept', hireRequest.id);
+        handleUpdate('accept','pending' ,hireRequest.id);
       }
     }}
   >
@@ -265,7 +266,7 @@ function Requests() {
     onClick={(e) => {
       e.stopPropagation();
       if (currentForm.reason.trim()) {
-        handleUpdate('reject', hireRequest.id);
+        handleUpdate('reject','reject', hireRequest.id);
       }
     }}
   >

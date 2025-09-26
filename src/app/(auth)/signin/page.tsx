@@ -28,7 +28,7 @@ const [notificationMessage, setNotificationMessage] = useState('');
 
   console.log('ev',formData.email)
 
-  if (formData.email !== 'thth@gmail.com') {
+  if (formData.email !== 'adminvroomvroom@gmail.com') {
   setNotificationMessage('Wrong Email');
   setShowNotification(true);
   setTimeout(() => setShowNotification(false), 5000);
@@ -38,7 +38,7 @@ const [notificationMessage, setNotificationMessage] = useState('');
 
     e.preventDefault();
   try {
-  const res = await fetch(`https://3pu48jrdxd.execute-api.eu-north-1.amazonaws.com/login/signin`, {
+  const res = await fetch(`https://ayowgv8aff.execute-api.eu-north-1.amazonaws.com/admin-signin/admin`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
