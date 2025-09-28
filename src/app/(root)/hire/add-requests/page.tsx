@@ -32,7 +32,16 @@ const [loading, setLoading] = useState(false);
     
   const consultationTypes = ['full-day', 'one-time', 'drinkdrive', 'long-term'];
 
-    
+         const tourTypes = [
+  { value: 'one-time', label: 'One Time' },
+  { value: 'full-day', label: 'Multi Day' },
+  { value: 'long-term', label: 'Long Term' },
+  { value: 'drinkdrive', label: 'Drunk & Drive' },
+  { value: 'lady-one-time', label: 'One Time (Lady)' },
+  { value: 'lady-full-day', label: 'Multi Day (Lady)' },
+  { value: 'lady-long-term', label: 'Long Term (Lady)' },
+  { value: 'lady-drinkdrive', label: 'Drunk & Drive (Lady)' },
+];
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -53,6 +62,7 @@ const [loading, setLoading] = useState(false);
         const data = await res.json();
         throw new Error(data.error || 'Failed to submit request');
       }
+      alert(`Request added successful`);
 
 
    } catch (error: unknown) {
@@ -69,36 +79,36 @@ const [loading, setLoading] = useState(false);
   return (
        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
   <div className="flex flex-col">
-  <label className="block text-gray-700 font-medium mb-2">
+  <label className="block text-white font-medium mb-2">
     Consultation Type <span className="text-red-600">*</span>
   </label>
-  <select
-    name="type"
-    value={formData.type}
-    onChange={(e) =>
-      setFormData((prev) => ({ ...prev, type: e.target.value }))
-    }
-    className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent"
-    required
-  >
-    {consultationTypes.map((type) => (
-      <option key={type} value={type}>
-        {type}
-      </option>
-    ))}
-  </select>
+ <select
+  name="type"
+  value={formData.type}
+  onChange={(e) =>
+    setFormData((prev) => ({ ...prev, type: e.target.value }))
+  }
+  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent"
+  required
+>
+  {tourTypes.map(({ value, label }) => (
+    <option key={value} value={value}>
+      {label}
+    </option>
+  ))}
+</select>
 </div>
 
                 <div className="flex flex-col">
-                  <label className="block text-gray-700 font-medium mb-2">
-                    Name <span className="text-red-600">*</span>
+                  <label className="block text-white font-medium mb-2">
+                    Email/Name <span className="text-red-600">*</span>
                   </label>
                   <input
                     name="userId"
                    // type="text"
                     onChange={handleChange}
                     value={formData.userId}
-                    placeholder="Your full name"
+                    placeholder="Enter Customer email/full name"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent placeholder-gray-500"
                     required
                   />
@@ -108,7 +118,7 @@ const [loading, setLoading] = useState(false);
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col">
-              <label className="">Pickup Date</label>
+              <label className="text-white">Pickup Date</label>
               <input
                 type="date"
                 name="pickupDate"
@@ -120,7 +130,7 @@ const [loading, setLoading] = useState(false);
             </div>
 
             <div className="flex flex-col">
-              <label className="">Return Date</label>
+              <label className="text-white">Return Date</label>
               <input
                 type="date"
                 name="returnDate"
@@ -133,7 +143,7 @@ const [loading, setLoading] = useState(false);
           </div>
 
           <div className="flex flex-col">
-            <label className="">Pickup Time</label>
+            <label className="text-white">Pickup Time</label>
             <input
               type="time"
               name="pickupTime"
@@ -145,7 +155,7 @@ const [loading, setLoading] = useState(false);
           </div>
 
           <div className="flex flex-col">
-            <label className="">Pickup Location</label>
+            <label className="text-white">Pickup Location</label>
             <textarea
               name="pickupLocation"
               rows={2}
@@ -158,7 +168,7 @@ const [loading, setLoading] = useState(false);
           </div>
 
           <div className="flex flex-col">
-            <label className="">Message</label>
+            <label className="text-white">Message</label>
             <textarea
               name="message"
               rows={4}

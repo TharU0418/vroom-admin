@@ -23,14 +23,14 @@ function AddDrivers() {
   //   setFiles(files);
   // };
 
-  const handleTourTypeChange = (type: string) => {
-    setFormData((prevData) => {
-      const updatedTourTypes = prevData.tour_types.includes(type)
-        ? prevData.tour_types.filter((t) => t !== type)
-        : [...prevData.tour_types, type];
-      return { ...prevData, tour_types: updatedTourTypes };
-    });
-  };
+  const handleTourTypeChange = (type) => {
+  setFormData((prev) => {
+    const tour_types = prev.tour_types.includes(type)
+      ? prev.tour_types.filter((t) => t !== type)
+      : [...prev.tour_types, type];
+    return { ...prev, tour_types };
+  });
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,6 +51,7 @@ function AddDrivers() {
     console.log('data', formData)
 
    
+
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DRIVERS}`, {
   method: 'POST',
@@ -73,6 +74,17 @@ function AddDrivers() {
    const cities = formData.district && formData.district in locations
      ? locations[formData.district as keyof typeof locations]
      : [];
+
+     const tourTypes = [
+  { value: 'one-time', label: 'One Time' },
+  { value: 'full-day', label: 'Multi Day' },
+  { value: 'long-term', label: 'Long Term' },
+  { value: 'drinkdrive', label: 'Drunk & Drive' },
+  { value: 'lady-one-time', label: 'One Time (Lady)' },
+  { value: 'lady-full-day', label: 'Multi Day (Lady)' },
+  { value: 'lady-long-term', label: 'Long Term (Lady)' },
+  { value: 'lady-drinkdrive', label: 'Drunk & Drive (Lady)' },
+];
 
   return (
     <div className="glass-container bg-white bg-opacity-10 backdrop-blur-lg rounded-xl shadow-lg border border-white border-opacity-20 max-w-6xl w-full mx-4 p-8">
@@ -188,22 +200,23 @@ function AddDrivers() {
         </div>
 
         {/* Tour Type Checkboxes */}
-        <div>
-          <label className="block text-white mb-2">Tour Type</label>
-          <div className="flex gap-4 text-white">
-            {['one-time', 'full-day', 'long-term', 'drinkdrive'].map((type) => (
-              <label key={type} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={formData.tour_types.includes(type)}
-                  onChange={() => handleTourTypeChange(type)}
-                  className="form-checkbox h-5 w-5 text-blue-600"
-                />
-                <span>{type}</span>
-              </label>
-            ))}
-          </div>
-        </div>
+       <div>
+  <label className="block text-white mb-2">Tour Type</label>
+  <div className="flex flex-wrap gap-4 text-white">
+    {tourTypes.map(({ value, label }) => (
+      <label key={value} className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          checked={formData.tour_types.includes(value)}
+          onChange={() => handleTourTypeChange(value)}
+          className="form-checkbox h-5 w-5 text-blue-600"
+        />
+        <span>{label}</span>
+      </label>
+    ))}
+  </div>
+</div>
+
 
         {/* File Upload */}
         {/* <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">

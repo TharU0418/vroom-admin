@@ -38,11 +38,11 @@ const [notificationMessage, setNotificationMessage] = useState('');
 
     e.preventDefault();
   try {
-  const res = await fetch(`https://ayowgv8aff.execute-api.eu-north-1.amazonaws.com/admin-signin/admin`, {
+const res = await fetch('/api/signin', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
-    credentials: 'include',
+   // credentials: 'include',
   });
 
 
