@@ -292,7 +292,7 @@ function AcceptDriver() {
                   {hireRequest.message && (
                     <div className="mt-3 p-2 bg-black/20 rounded">
                       <p className="text-gray-400 text-xs">Message:</p>
-                      <p className="text-white text-sm italic truncate">"{hireRequest.message}"</p>
+                      <p className="text-white text-sm italic truncate">{hireRequest.message}</p>
                     </div>
                   )}
                 </div>

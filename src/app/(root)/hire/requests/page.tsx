@@ -286,7 +286,7 @@ function Requests() {
                   {hireRequest.message && (
                     <div className="mb-4 p-4 bg-black/20 rounded-lg border border-white/10">
                       <p className="text-gray-400 text-sm mb-1">Message:</p>
-                      <p className="text-white italic">"{hireRequest.message}"</p>
+                      <p className="text-white italic">{hireRequest.message}</p>
                     </div>
                   )}
 

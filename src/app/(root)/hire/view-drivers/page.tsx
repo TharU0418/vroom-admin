@@ -212,7 +212,7 @@ function ViewDrivers() {
                 {/* Description */}
                 {driver.description && (
                   <div className="mt-auto pt-4 border-t border-white/10">
-                    <p className="text-gray-300 text-sm italic">"{driver.description}"</p>
+                    <p className="text-gray-300 text-sm italic">{driver.description}</p>
                   </div>
                 )}
               </div>
