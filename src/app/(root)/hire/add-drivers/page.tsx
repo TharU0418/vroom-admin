@@ -23,7 +23,7 @@ function AddDrivers() {
   //   setFiles(files);
   // };
 
-  const handleTourTypeChange = (type) => {
+  const handleTourTypeChange = (type: string) => {
   setFormData((prev) => {
     const tour_types = prev.tour_types.includes(type)
       ? prev.tour_types.filter((t) => t !== type)
@@ -31,6 +31,7 @@ function AddDrivers() {
     return { ...prev, tour_types };
   });
 };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
